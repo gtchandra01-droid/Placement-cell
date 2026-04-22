@@ -1,0 +1,104 @@
+# =========================
+# Node.js
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.env
+venv/
+env/
+ENV/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# Database
+# =========================
+*.sqlite
+*.db
+
+# =========================
+# Build / Output
+# =========================
+dist/
+build/
+out/
+coverage/
+
+# =========================
+# Frontend (React/Vue etc.)
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# =========================
+# Backend
+# =========================
+backend/__pycache__/
+backend/venv/
+backend/env/
+
+# =========================
+# Misc
+# =========================
+*.bak
+*.tmp
+*.temp
+
+# =========================
+# System Files
+# =========================
+*.bat
+*.sh
+
+# =========================
+# Images (optional)
+# =========================
+# Uncomment if you don't want images in repo
+# *.png
+# *.jpg
+# *.jpeg
+# *.gif

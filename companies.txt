@@ -1,0 +1,182 @@
+JNTUK Placement Companies Database - Updated 2025-2026
+=======================================================
+
+Company: TCS (Tata Consultancy Services)
+Logo: https://logo.clearbit.com/tcs.com
+Sector: IT Services
+Location: Hyderabad, India
+Registration: https://careers.tcs.com/campus-hiring
+Package: 3.5-7 LPA
+Status: Actively Hiring
+---
+
+Company: Infosys
+Logo: https://logo.clearbit.com/infosys.com
+Sector: IT Services
+Location: Bangalore, India
+Registration: https://careers.infosys.com/campus-connect
+Package: 4-9 LPA
+Status: Actively Hiring
+---
+
+Company: Wipro
+Logo: https://logo.clearbit.com/wipro.com
+Sector: IT Services
+Location: Bangalore, India
+Registration: https://careers.wipro.com/campus-recruitment
+Package: 3.5-8 LPA
+Status: Actively Hiring
+---
+
+Company: Amazon
+Logo: https://logo.clearbit.com/amazon.com
+Sector: Product Based
+Location: Hyderabad, India
+Registration: https://amazon.jobs/en/teams/university-recruiting
+Package: 15-44 LPA
+Status: Actively Hiring
+---
+
+Company: Microsoft
+Logo: https://logo.clearbit.com/microsoft.com
+Sector: Product Based
+Location: Hyderabad, India
+Registration: https://careers.microsoft.com/students/us/en/university-recruiting
+Package: 18-50 LPA
+Status: Actively Hiring
+---
+
+Company: Google
+Logo: https://logo.clearbit.com/google.com
+Sector: Product Based
+Location: Bangalore, India
+Registration: https://careers.google.com/students/
+Package: 20-60 LPA
+Status: Actively Hiring
+---
+
+Company: Accenture
+Logo: https://logo.clearbit.com/accenture.com
+Sector: IT Consulting
+Location: Bangalore, India
+Registration: https://www.accenture.com/in-en/careers/campus-recruiting
+Package: 4.5-12 LPA
+Status: Actively Hiring
+---
+
+Company: Cognizant
+Logo: https://logo.clearbit.com/cognizant.com
+Sector: IT Services
+Location: Pune, India
+Registration: https://careers.cognizant.com/campus
+Package: 4-11 LPA
+Status: Actively Hiring
+---
+
+Company: HCL Technologies
+Logo: https://logo.clearbit.com/hcl.com
+Sector: IT Services
+Location: Noida, India
+Registration: https://www.hcltech.com/careers/campus-connect
+Package: 3.8-10 LPA
+Status: Actively Hiring
+---
+
+Company: Tech Mahindra
+Logo: https://logo.clearbit.com/techmahindra.com
+Sector: IT Services
+Location: Pune, India
+Registration: https://careers.techmahindra.com/campus-hiring
+Package: 3.5-9 LPA
+Status: Actively Hiring
+---
+
+Company: Capgemini
+Logo: https://logo.clearbit.com/capgemini.com
+Sector: IT Consulting
+Location: Mumbai, India
+Registration: https://www.capgemini.com/careers/your-career/campus-recruitment/
+Package: 4-10 LPA
+Status: Actively Hiring
+---
+
+Company: IBM
+Logo: https://logo.clearbit.com/ibm.com
+Sector: Technology
+Location: Bangalore, India
+Registration: https://www.ibm.com/careers/university/
+Package: 5-15 LPA
+Status: Actively Hiring
+---
+
+Company: Oracle
+Logo: https://logo.clearbit.com/oracle.com
+Sector: Database Technology
+Location: Bangalore, India
+Registration: https://www.oracle.com/corporate/careers/students-grads/
+Package: 6-18 LPA
+Status: Actively Hiring
+---
+
+Company: Deloitte
+Logo: https://logo.clearbit.com/deloitte.com
+Sector: Consulting
+Location: Hyderabad, India
+Registration: https://www2.deloitte.com/in/en/pages/careers/articles/campus-recruitment.html
+Package: 6-15 LPA
+Status: Actively Hiring
+---
+
+Company: Salesforce
+Logo: https://logo.clearbit.com/salesforce.com
+Sector: Cloud Computing
+Location: Hyderabad, India
+Registration: https://salesforce.wd1.myworkdayjobs.com/External_Career_Site
+Package: 12-25 LPA
+Status: Actively Hiring
+---
+
+Company: Adobe
+Logo: https://logo.clearbit.com/adobe.com
+Sector: Software
+Location: Bangalore, India
+Registration: https://adobe.wd5.myworkdayjobs.com/external_university
+Package: 15-35 LPA
+Status: Actively Hiring
+---
+
+Company: Flipkart
+Logo: https://logo.clearbit.com/flipkart.com
+Sector: E-commerce
+Location: Bangalore, India
+Registration: https://www.flipkartcareers.com/#!/campus-hiring
+Package: 12-30 LPA
+Status: Actively Hiring
+---
+
+Company: Paytm
+Logo: https://logo.clearbit.com/paytm.com
+Sector: Fintech
+Location: Noida, India
+Registration: https://jobs.paytm.com/campus-hiring
+Package: 8-20 LPA
+Status: Actively Hiring
+---
+
+Company: Zomato
+Logo: https://logo.clearbit.com/zomato.com
+Sector: Food Tech
+Location: Gurgaon, India
+Registration: https://www.zomato.com/careers/campus
+Package: 10-25 LPA
+Status: Actively Hiring
+---
+
+Company: Swiggy
+Logo: https://logo.clearbit.com/swiggy.com
+Sector: Food Delivery
+Location: Bangalore, India
+Registration: https://careers.swiggy.com/campus-hiring
+Package: 12-28 LPA
+Status: Actively Hiring
+---
