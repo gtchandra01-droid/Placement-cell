@@ -106,3 +106,29 @@ CREATE TABLE IF NOT EXISTS pages (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Drop the old table and recreate with new schema
+DROP TABLE IF EXISTS placement_drives CASCADE;
+
+CREATE TABLE IF NOT EXISTS placement_drives (
+    id SERIAL PRIMARY KEY,
+    company_id INTEGER REFERENCES companies(id) ON DELETE CASCADE,
+    company_name VARCHAR(150),
+    drive_date DATE,
+    package_lpa DECIMAL(5,2),
+    role VARCHAR(100),
+    location VARCHAR(100),
+    eligibility TEXT,
+    description TEXT,
+    start_time TIME,
+    registration_link TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Add registration_link column if it doesn't exist
+ALTER TABLE placement_drives
+ADD COLUMN IF NOT EXISTS registration_link TEXT;
+
+-- Drop salary_package column if it exists
+ALTER TABLE placement_drives
+DROP COLUMN IF EXISTS salary_package;

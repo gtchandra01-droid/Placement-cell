@@ -285,7 +285,7 @@ export default function Statistics() {
                           </td>
                           <td className="text-center py-3 px-4 text-slate-600">{branch.total_students}</td>
                           <td className="text-center py-3 px-4 text-[#d4a853] font-bold">{branch.students_placed}</td>
-                          <td className="text-center py-3 px-4 text-green-600 font-semibold">{branch.placement_percent.toFixed(1)}%</td>
+                          <td className="text-center py-3 px-4 text-green-600 font-semibold">{Number(branch.placement_percent).toFixed(1)}%</td>
                         </tr>
                       ))}
                     </tbody>
@@ -316,61 +316,6 @@ export default function Statistics() {
             <div className="flex justify-center">
               <div className="bg-white p-8 rounded-xl border border-slate-100">
                 <SimplePieChart data={sectorData} />
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Top Recruiters */}
-      {recruiters.length > 0 && (
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <h2 className="text-3xl font-display font-bold text-[#0b1c33] mb-8 text-center">
-              Top Recruiters - Offers Distribution
-            </h2>
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="flex justify-center">
-                <div className="bg-[#faf8f3] p-8 rounded-xl border border-slate-100">
-                  <SimplePieChart data={recruiters.map(r => ({ name: r.name, value: r.offers }))} />
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="bg-[#faf8f3] rounded-xl border border-slate-100 overflow-hidden">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-slate-100 border-b border-slate-200">
-                        <th className="text-left py-3 px-4 font-semibold text-[#0b1c33]">Company</th>
-                        <th className="text-center py-3 px-4 font-semibold text-[#0b1c33]">Offers</th>
-                        <th className="text-center py-3 px-4 font-semibold text-[#0b1c33]">Max LPA</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {recruiters.map((company, index) => (
-                        <tr key={company.name} className="border-b border-slate-100 hover:bg-white transition-colors">
-                          <td className="py-3 px-4">
-                            <div className="flex items-center gap-3">
-                              <div
-                                className="w-3 h-3 rounded"
-                                style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                              ></div>
-                              <span className="font-medium text-[#0b1c33]">{company.name}</span>
-                            </div>
-                          </td>
-                          <td className="text-center py-3 px-4 text-[#d4a853] font-bold">{company.offers}</td>
-                          <td className="text-center py-3 px-4 text-slate-600">₹{company.package}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <p className="text-sm text-blue-900">
-                    <span className="font-semibold">Total Offers:</span> {recruiters.reduce((sum, r) => sum + r.offers, 0)}
-                  </p>
-                </div>
               </div>
             </div>
           </div>

@@ -12,7 +12,7 @@ type Drive = {
   eligibility?: string;
   description?: string;
   start_time?: string;
-  registration_link?: string;
+  registration_link: string;
 };
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
@@ -85,19 +85,28 @@ export default function Drives() {
       };
 
       if (editingDrive) {
+        console.log("Updating drive:", editingDrive.id);
+
         try {
           await axios.put(`${API_URL}/admin/drives/${editingDrive.id}`, data, {
             headers: { Authorization: `Bearer ${token}` },
           });
-        } catch (apiErr) {
-          console.log("API update failed, using localStorage");
+          console.log("API update success");
+        } catch (err) {
+          console.error("API update failed:", err);
         }
 
         const updated = drives.map((d) =>
-          d.id === editingDrive.id ? { ...d, ...data } : d
+          Number(d.id) === Number(editingDrive.id)
+            ? { ...d, ...data }
+            : d
         );
-        setDrives(updated);
+
+        console.log("Updated drives:", updated);
+
+        setDrives([...updated]);
         localStorage.setItem("drives", JSON.stringify(updated));
+
         alert("Drive updated!");
       } else {
         try {
@@ -133,8 +142,8 @@ export default function Drives() {
     if (!window.confirm("Delete this drive?")) return;
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
-      
+      const token = localStorage.getItem("admin_token");
+
       try {
         await axios.delete(`${API_URL}/admin/drives/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
