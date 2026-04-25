@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Calendar, MapPin, Briefcase, ExternalLink } from "lucide-react";
+import axios from "axios";
 
 interface Drive {
   id: number;
@@ -14,30 +15,37 @@ interface Drive {
   registration_link?: string;
 }
 
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 export default function Drives() {
   const [drives, setDrives] = useState<Drive[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedDrive, setSelectedDrive] = useState<Drive | null>(null);
 
+  /* ================= FETCH FROM DATABASE ================= */
+
   useEffect(() => {
-    loadDrives();
-    // Listen for storage changes from admin panel
-    window.addEventListener("storage", loadDrives);
-    return () => window.removeEventListener("storage", loadDrives);
+    fetchDrives();
   }, []);
 
-  const loadDrives = () => {
+  const fetchDrives = async () => {
     try {
-      const saved = localStorage.getItem("drives");
-      if (saved) {
-        setDrives(JSON.parse(saved));
-      }
+      setLoading(true);
+
+      const response = await axios.get(`${API_URL}/admin/drives`);
+
+      const data = response.data?.data || response.data || [];
+
+      setDrives(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Error loading drives:", error);
     } finally {
       setLoading(false);
     }
   };
+
+  /* ================= DATE FORMAT ================= */
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -48,6 +56,8 @@ export default function Drives() {
       day: "numeric",
     });
   };
+
+  /* ================= LOADING UI ================= */
 
   if (loading) {
     return (
@@ -60,12 +70,18 @@ export default function Drives() {
     );
   }
 
+  /* ================= MAIN UI ================= */
+
   return (
     <div className="min-h-screen bg-white">
       <section className="bg-[#0b1c33] text-white py-16">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Placement Drives</h1>
-          <p className="text-white/70 text-lg">Upcoming recruitment drives from top companies</p>
+          <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
+            Placement Drives
+          </h1>
+          <p className="text-white/70 text-lg">
+            Upcoming recruitment drives from top companies
+          </p>
         </div>
       </section>
 
@@ -80,8 +96,12 @@ export default function Drives() {
                   className="bg-white rounded-2xl border-2 border-slate-100 p-6 shadow-md hover:shadow-xl hover:border-[#d4a853] transition-all duration-300 cursor-pointer"
                 >
                   <div className="mb-4">
-                    <h3 className="text-2xl font-bold text-[#0b1c33] mb-2">{drive.company_name}</h3>
-                    <p className="text-[#d4a853] font-semibold text-lg">₹{drive.package_lpa} LPA</p>
+                    <h3 className="text-2xl font-bold text-[#0b1c33] mb-2">
+                      {drive.company_name}
+                    </h3>
+                    <p className="text-[#d4a853] font-semibold text-lg">
+                      ₹{drive.package_lpa} LPA
+                    </p>
                   </div>
 
                   <div className="space-y-3 mb-6 text-sm text-slate-600">
@@ -126,14 +146,18 @@ export default function Drives() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-slate-600 text-lg">No placement drives available yet</p>
-              <p className="text-slate-500 text-sm mt-2">Check back soon for upcoming drives!</p>
+              <p className="text-slate-600 text-lg">
+                No placement drives available yet
+              </p>
+              <p className="text-slate-500 text-sm mt-2">
+                Check back soon for upcoming drives!
+              </p>
             </div>
           )}
         </div>
       </section>
 
-      {/* Drive Details Modal */}
+      {/* ================= MODAL ================= */}
       {selectedDrive && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
@@ -144,46 +168,74 @@ export default function Drives() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-6">
-              <h2 className="text-3xl font-bold text-[#0b1c33] mb-2">{selectedDrive.company_name}</h2>
-              <p className="text-[#d4a853] font-semibold text-xl">₹{selectedDrive.package_lpa} LPA</p>
+              <h2 className="text-3xl font-bold text-[#0b1c33] mb-2">
+                {selectedDrive.company_name}
+              </h2>
+              <p className="text-[#d4a853] font-semibold text-xl">
+                ₹{selectedDrive.package_lpa} LPA
+              </p>
             </div>
 
             <div className="space-y-4 mb-8">
               <div className="bg-slate-50 rounded-lg p-4">
-                <p className="text-sm text-slate-600 font-semibold mb-1">Position</p>
-                <p className="text-lg text-[#0b1c33] font-semibold">{selectedDrive.role}</p>
+                <p className="text-sm text-slate-600 font-semibold mb-1">
+                  Position
+                </p>
+                <p className="text-lg text-[#0b1c33] font-semibold">
+                  {selectedDrive.role}
+                </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 font-semibold mb-1">Drive Date</p>
-                  <p className="text-lg text-[#0b1c33] font-semibold">{formatDate(selectedDrive.drive_date)}</p>
+                  <p className="text-sm text-slate-600 font-semibold mb-1">
+                    Drive Date
+                  </p>
+                  <p className="text-lg text-[#0b1c33] font-semibold">
+                    {formatDate(selectedDrive.drive_date)}
+                  </p>
                 </div>
 
                 <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 font-semibold mb-1">Location</p>
-                  <p className="text-lg text-[#0b1c33] font-semibold">{selectedDrive.location}</p>
+                  <p className="text-sm text-slate-600 font-semibold mb-1">
+                    Location
+                  </p>
+                  <p className="text-lg text-[#0b1c33] font-semibold">
+                    {selectedDrive.location}
+                  </p>
                 </div>
               </div>
 
               {selectedDrive.start_time && (
                 <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 font-semibold mb-1">Start Time</p>
-                  <p className="text-lg text-[#0b1c33] font-semibold">{selectedDrive.start_time}</p>
+                  <p className="text-sm text-slate-600 font-semibold mb-1">
+                    Start Time
+                  </p>
+                  <p className="text-lg text-[#0b1c33] font-semibold">
+                    {selectedDrive.start_time}
+                  </p>
                 </div>
               )}
 
               {selectedDrive.eligibility && (
                 <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                  <p className="text-sm text-blue-900 font-semibold mb-2">Eligibility Criteria</p>
-                  <p className="text-blue-800 whitespace-pre-wrap">{selectedDrive.eligibility}</p>
+                  <p className="text-sm text-blue-900 font-semibold mb-2">
+                    Eligibility Criteria
+                  </p>
+                  <p className="text-blue-800 whitespace-pre-wrap">
+                    {selectedDrive.eligibility}
+                  </p>
                 </div>
               )}
 
               {selectedDrive.description && (
                 <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                  <p className="text-sm text-green-900 font-semibold mb-2">About the Drive</p>
-                  <p className="text-green-800 whitespace-pre-wrap">{selectedDrive.description}</p>
+                  <p className="text-sm text-green-900 font-semibold mb-2">
+                    About the Drive
+                  </p>
+                  <p className="text-green-800 whitespace-pre-wrap">
+                    {selectedDrive.description}
+                  </p>
                 </div>
               )}
             </div>

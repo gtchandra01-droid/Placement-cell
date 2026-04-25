@@ -78,36 +78,29 @@ export default function PlacementStats() {
   const fetchStats = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
-
-      try {
-        const response = await axios.get(`${API_URL}/admin/stats`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = response.data || [];
-        setStats(data);
-        localStorage.setItem("placementStats", JSON.stringify(data));
-        window.dispatchEvent(new Event("storage"));
-      } catch (apiErr) {
-        console.log("API failed, using localStorage");
-        const saved = localStorage.getItem("placementStats");
-        if (saved) setStats(JSON.parse(saved));
-      }
+      const token = localStorage.getItem("admin_token");
+      const response = await axios.get(`${API_URL}/admin/stats`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setStats(response.data || []);
+    } catch (err: any) {
+      console.error("Error fetching stats:", err);
+      alert("Failed to fetch statistics");
     } finally {
       setLoading(false);
     }
   };
 
-  const loadChartConfig = () => {
+  const loadChartConfig = async () => {
     try {
-      const saved = localStorage.getItem("chartConfigs");
-      if (saved) {
-        setCharts(JSON.parse(saved));
-      } else {
-        localStorage.setItem("chartConfigs", JSON.stringify(DEFAULT_CHARTS));
-      }
-    } catch (error) {
-      console.error("Error loading chart config:", error);
+      const token = localStorage.getItem("admin_token");
+      const response = await axios.get(`${API_URL}/admin/charts`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCharts(response.data || DEFAULT_CHARTS);
+    } catch (err: any) {
+      console.error("Error loading chart config:", err);
+      alert("Failed to load chart configuration");
     }
   };
 
@@ -120,7 +113,7 @@ export default function PlacementStats() {
 
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("admin_token");
       const data = {
         year: parseInt(formData.year.toString()),
         total_students: parseInt(formData.total_students),
@@ -130,39 +123,18 @@ export default function PlacementStats() {
       };
 
       if (editingStat) {
-        try {
-          await axios.put(`${API_URL}/admin/stats/${editingStat.id}`, data, {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-        } catch (apiErr) {
-          console.log("API update failed, using localStorage");
-        }
-
-        const updated = stats.map((s) =>
-          s.id === editingStat.id ? { ...s, ...data } : s
-        );
-        setStats(updated);
-        localStorage.setItem("placementStats", JSON.stringify(updated));
+        await axios.put(`${API_URL}/admin/stats/${editingStat.id}`, data, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         alert("Statistics updated!");
       } else {
-        try {
-          const response = await axios.post(`${API_URL}/admin/stats`, data, {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          const newStat = response.data;
-          const updated = [...stats, newStat];
-          setStats(updated);
-          localStorage.setItem("placementStats", JSON.stringify(updated));
-        } catch (apiErr) {
-          console.log("API create failed, using localStorage");
-          const newStat = { id: Date.now(), ...data };
-          const updated = [...stats, newStat];
-          setStats(updated);
-          localStorage.setItem("placementStats", JSON.stringify(updated));
-        }
+        await axios.post(`${API_URL}/admin/stats`, data, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         alert("Statistics created!");
       }
 
+      await fetchStats();
       window.dispatchEvent(new Event("storage"));
       resetForm();
     } catch (err: any) {
@@ -173,7 +145,7 @@ export default function PlacementStats() {
     }
   };
 
-  const handleChartSubmit = (e: React.FormEvent) => {
+  const handleChartSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!chartFormData.title) {
       alert("Please enter chart title");
@@ -181,24 +153,22 @@ export default function PlacementStats() {
     }
 
     try {
-      let updated: ChartConfig[];
+      const token = localStorage.getItem("admin_token");
 
       if (editingChart) {
-        updated = charts.map((c) =>
-          c.id === editingChart.id ? { ...c, ...chartFormData } : c
-        );
+        await axios.put(`${API_URL}/admin/charts/${editingChart.id}`, chartFormData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        alert("Chart updated!");
       } else {
-        const newChart: ChartConfig = {
-          id: `chart_${Date.now()}`,
-          ...chartFormData,
-        };
-        updated = [...charts, newChart];
+        await axios.post(`${API_URL}/admin/charts`, chartFormData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        alert("Chart created!");
       }
 
-      setCharts(updated);
-      localStorage.setItem("chartConfigs", JSON.stringify(updated));
+      await loadChartConfig();
       window.dispatchEvent(new Event("storage"));
-      alert(editingChart ? "Chart updated!" : "Chart created!");
       resetChartForm();
     } catch (err: any) {
       console.error("Error:", err);
@@ -210,19 +180,11 @@ export default function PlacementStats() {
     if (!window.confirm("Delete this record?")) return;
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
-
-      try {
-        await axios.delete(`${API_URL}/admin/stats/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-      } catch (apiErr) {
-        console.log("API delete failed, using localStorage");
-      }
-
-      const updated = stats.filter((s) => s.id !== id);
-      setStats(updated);
-      localStorage.setItem("placementStats", JSON.stringify(updated));
+      const token = localStorage.getItem("admin_token");
+      await axios.delete(`${API_URL}/admin/stats/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      await fetchStats();
       window.dispatchEvent(new Event("storage"));
       alert("Statistics deleted!");
     } catch (err: any) {
@@ -233,13 +195,20 @@ export default function PlacementStats() {
     }
   };
 
-  const handleDeleteChart = (id: string) => {
+  const handleDeleteChart = async (id: string) => {
     if (!window.confirm("Delete this chart?")) return;
-    const updated = charts.filter((c) => c.id !== id);
-    setCharts(updated);
-    localStorage.setItem("chartConfigs", JSON.stringify(updated));
-    window.dispatchEvent(new Event("storage"));
-    alert("Chart deleted!");
+    try {
+      const token = localStorage.getItem("admin_token");
+      await axios.delete(`${API_URL}/admin/charts/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      await loadChartConfig();
+      window.dispatchEvent(new Event("storage"));
+      alert("Chart deleted!");
+    } catch (err: any) {
+      console.error("Error:", err);
+      alert("Failed to delete chart");
+    }
   };
 
   const handleEdit = (stat: PlacementStat) => {

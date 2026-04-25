@@ -26,12 +26,12 @@ router.get("/recruiters", getRecruiters);
 router.get("/branch-placements", getBranchPlacements);
 
 // Admin routes (protected)
-router.put("/admin/placement-stats", authenticateToken, updatePlacementStats);
+router.put("/placement-stats", authenticateToken, updatePlacementStats);
 
-router.post("/admin/stats", authenticateToken, createYearStat);
-router.get("/admin/stats", authenticateToken, getYearStats);
-router.put("/admin/stats/:id", authenticateToken, updateYearStat);
-router.delete("/admin/stats/:id", authenticateToken, deleteYearStat);
+router.post("/", authenticateToken, createYearStat);
+router.get("/", authenticateToken, getYearStats);
+router.put("/:id", authenticateToken, updateYearStat);
+router.delete("/:id", authenticateToken, deleteYearStat);
 
 router.post("/admin/recruiters", authenticateToken, createRecruiter);
 router.put("/admin/recruiters/:name", authenticateToken, updateRecruiter);

@@ -41,7 +41,7 @@ app.use("/api/images", imageRoutes);
 app.use("/api", companyRoutes);
 
 // Statistics routes
-app.use("/api", statisticsRoutes);
+app.use("/api/admin/stats", statisticsRoutes);
 
 // Gallery routes (must be before admin routes to avoid catch-all /:id)
 app.use("/api/admin", galleryRoutes);
