@@ -79,7 +79,7 @@ export default function BranchWisePlacements() {
                       <td className="text-center py-4 px-6 text-slate-600">{branch.students_placed}</td>
                       <td className="text-center py-4 px-6">
                         <span className="inline-block px-3 py-1 rounded-full bg-green-100 text-green-700 font-semibold">
-                          {branch.placement_percent.toFixed(2)}%
+                          {Number(branch.placement_percent).toFixed(2)}%
                         </span>
                       </td>
                       <td className="text-center py-4 px-6 text-slate-600 font-medium">

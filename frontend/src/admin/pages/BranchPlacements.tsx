@@ -221,7 +221,7 @@ export default function BranchPlacements() {
                 <td className="py-3 px-4 text-black font-medium">{branch.branch_name}</td>
                 <td className="text-center py-3 px-4 text-gray-600">{branch.total_students}</td>
                 <td className="text-center py-3 px-4 text-gray-600">{branch.students_placed}</td>
-                <td className="text-center py-3 px-4 text-[#d4a853] font-semibold">{branch.placement_percent.toFixed(2)}%</td>
+                <td className="text-center py-3 px-4 text-[#d4a853] font-semibold">{Number(branch.placement_percent).toFixed(2)}%</td>
                 <td className="text-center py-3 px-4 text-gray-600">₹{branch.highest_package}</td>
                 <td className="text-center py-3 px-4 text-gray-600">₹{branch.avg_package}</td>
                 <td className="text-center py-3 px-4 flex items-center justify-center gap-2">
