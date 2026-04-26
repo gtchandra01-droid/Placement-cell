@@ -59,12 +59,12 @@ export default function Statistics() {
       setError(null);
       console.log("Loading statistics data...");
       
-      const statsRes = await api.get("placement-stats").catch(e => {
+      const statsRes = await api.get("placement/stats").catch(e => {
         console.error("placement-stats error:", e);
         return { data: {} };
       });
       
-      const yearRes = await api.get("year-stats").catch(e => {
+      const yearRes = await api.get("placement/stats/year-stats").catch(e => {
         console.error("year-stats error:", e);
         return { data: [] };
       });
@@ -300,22 +300,6 @@ export default function Statistics() {
                     <span className="font-semibold">Total Placed:</span> {branches.reduce((sum, b) => sum + b.students_placed, 0)}
                   </p>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Company Sector Distribution */}
-      {sectorData.length > 0 && (
-        <section className="py-16 bg-[#faf8f3]">
-          <div className="max-w-7xl mx-auto px-6">
-            <h2 className="text-3xl font-display font-bold text-[#0b1c33] mb-8 text-center">
-              Company Sector Distribution
-            </h2>
-            <div className="flex justify-center">
-              <div className="bg-white p-8 rounded-xl border border-slate-100">
-                <SimplePieChart data={sectorData} />
               </div>
             </div>
           </div>

@@ -12,7 +12,7 @@ import { authenticateToken } from "../middleware/auth.middleware";
 const router = Router();
 
 // Public routes
-router.get("/placements/stats", getPlacementStats);
+router.get("/stats", getPlacementStats);
 
 // Admin routes (protected)
 router.get("/admin/placements", authenticateToken, getPlacements);

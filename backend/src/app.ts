@@ -16,15 +16,16 @@ import pagesRoutes from "./routes/pages.routes";
 import statisticsRoutes from "./routes/statistics.routes";
 import galleryRoutes from "./routes/gallery.routes";
 import testRoutes from "./routes/test.routes";
+import branchRoutes from "./routes/branchplacement.routes";
 
 const app = express();
 
 app.use(cors({
-		origin: [
-			"http://localhost:5173",
-		].filter(Boolean),
-		credentials: true,
-	}));
+	origin: [
+		"http://localhost:5173",
+	].filter(Boolean),
+	credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
@@ -32,7 +33,7 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 // app.use("/api/drives", driveRoutes);
-app.use("/api/admin/drives", driveRoutes); 
+app.use("/api/admin/drives", driveRoutes);
 app.use("/api/stats", statsRoutes);
 app.use("/api/menus", menuRoutes);
 app.use("/api/images", imageRoutes);
@@ -52,14 +53,15 @@ app.use("/api/admin", adminRoutes);
 app.use("/api", placementRoutes);
 app.use("/api", pagesRoutes);
 app.use("/api", testRoutes);
+app.use("/api", branchRoutes);
 
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({ message: err.message || "Internal Server Error" });
+	console.error(err.stack);
+	res.status(err.status || 500).json({ message: err.message || "Internal Server Error" });
 });
 
 app.use((_req: Request, res: Response) => {
-  res.status(404).json({ message: "Route not found" });
+	res.status(404).json({ message: "Route not found" });
 });
 
 export default app;
