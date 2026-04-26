@@ -59,7 +59,7 @@ export default function Statistics() {
       setError(null);
       console.log("Loading statistics data...");
       
-      const statsRes = await api.get("placement/stats").catch(e => {
+      const statsRes = await api.get("placement/stats/placement-stats").catch(e => {
         console.error("placement-stats error:", e);
         return { data: {} };
       });

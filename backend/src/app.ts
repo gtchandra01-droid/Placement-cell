@@ -43,7 +43,7 @@ app.use("/api", companyRoutes);
 
 // Statistics routes
 app.use("/api/admin/stats", statisticsRoutes);
-
+app.use("/api/placement/stats", statisticsRoutes);
 // Gallery routes (must be before admin routes to avoid catch-all /:id)
 app.use("/api/admin", galleryRoutes);
 
