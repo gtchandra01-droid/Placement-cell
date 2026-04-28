@@ -13,7 +13,6 @@ import {
   Shield,
   GraduationCap,
   Calendar,
-  BarChart3,
 } from "lucide-react";
 
 import { NavLink, useLocation } from "react-router-dom";
@@ -76,7 +75,7 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
       {/* Navigation */}
       <nav className="flex-1 py-6 px-3 overflow-y-auto scrollbar-hide">
         <ul className="space-y-1">
-          {navItems.map((item) => {
+          {navItems.map((item: any) => {
             const isActive = location.pathname === item.path ||
               (item.path !== "/admin" && location.pathname.startsWith(item.path));
 
